@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  varnish:
+    image: varnish:7.2.1
+    volumes:
+      - ./varnish.vcl:/etc/varnish/default.vcl
+    deploy:
+      replicas: 3
+
+  broadcaster:
+    image: zapotocnylubos/broadcaster:0.1.6
+    environment:
+      DOMAIN: 'tasks.varnish'
+    ports:
+      - '80:80'
